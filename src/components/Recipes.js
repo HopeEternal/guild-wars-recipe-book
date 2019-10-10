@@ -15,11 +15,20 @@ export default class Recipes extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div class="container">
                 <h2>Recipes Here</h2>
-                <ul>
-                { this.state.persons.map(person => <li>{person.name}</li>)}
-                </ul>
+                <div class="row">
+                    { this.state.persons.map(person => 
+                    <div class="col s12 m6 l3">
+                        <div class="card-panel teal lighten-2">
+                            <div class="card-content">
+                                <i class="material-icons delete">delete</i>
+                                <p class="white-text">{person.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                    )}
+                </div>
             </div>
         )
     }
