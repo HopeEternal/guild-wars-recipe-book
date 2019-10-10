@@ -3,31 +3,47 @@ import axios from 'axios'
 
 export default class Recipes extends React.Component {
     state = {
-        persons: []
+        recipes: [],
+        recipeIDs: []
     }
 
     componentDidMount() {
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
-        .then(res => {
-        const persons = res.data;
-        this.setState({ persons });
+    axios.get(`https://api.guildwars2.com/v2/recipes`)
+        .then(res => { this.setState({ recipeIDs: res.data });
+          //  console.log(this.state.recipeIDs);
+
+            this.state.recipeIDs.forEach((element) => {
+                    axios.get(`https://api.guildwars2.com/v2/recipes/` + element)
+                    .then(res => {
+                        res.data.disciplines.includes("Weaponsmith") ? this.state.recipes.push(res.data) : console.log("POOP!");
+                    
+                 //   this.setState({ recipes });
+                    console.log(this.state.recipes);
+                    })  
+                    .catch(
+                        console.log(err);
+                    )
+                             
+            })
+
         })
     }
     render() {
         return (
-            <div style={recipeCont} class="container">
-                <div class="row">
-                    { this.state.persons.map(person => 
-                    <div class="col s12 m6 l3">
-                        <div class="card-panel hoverable">
-                            <div class="card-content">
-                                <i class="material-icons palette right">palette</i>
-                                <p class="blue-grey-text-darken-3">{person.name}</p>
+            <div style={recipeCont} className="container">
+                {
+                    /* <div className="row">
+                    { this.state.recipes.map(recipe => 
+                    <div className="col s12 m6 l3">
+                        <div className="card-panel hoverable">
+                            <div className="card-content">
+                                <i className="material-icons palette right">palette</i>
+                                <p className="blue-grey-text-darken-3">{recipe.type}</p>
                             </div>
                         </div>
                     </div>
                     )}
-                </div>
+                </div> */}
             </div>
         )
     }
