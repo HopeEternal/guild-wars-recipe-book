@@ -15,15 +15,14 @@ export default class Recipes extends React.Component {
     }
     render() {
         return (
-            <div class="container">
-                <h2>Recipes Here</h2>
+            <div style={recipeCont} class="container">
                 <div class="row">
                     { this.state.persons.map(person => 
                     <div class="col s12 m6 l3">
-                        <div class="card-panel teal lighten-2">
+                        <div class="card-panel hoverable">
                             <div class="card-content">
-                                <i class="material-icons delete">delete</i>
-                                <p class="white-text">{person.name}</p>
+                                <i class="material-icons palette right">palette</i>
+                                <p class="blue-grey-text-darken-3">{person.name}</p>
                             </div>
                         </div>
                     </div>
@@ -32,5 +31,9 @@ export default class Recipes extends React.Component {
             </div>
         )
     }
+}
+
+const recipeCont = {
+    padding: '20px',
 }
 
