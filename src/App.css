@@ -13,3 +13,16 @@ a {
   color: #333;
   text-decoration: none;
 }
+
+.recipeCont {
+  padding: 20px;
+}
+
+.fieldTitle {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.dataField {
+  padding: 10px 0px;
+}
