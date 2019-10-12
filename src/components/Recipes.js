@@ -10,7 +10,7 @@ export default class Recipes extends React.Component {
 
     componentDidMount() {
     //Grab and Store Recipe IDs
-    axios.get(`https://api.guildwars2.com/v2/recipes`)
+    let promise1 = axios.get(`https://api.guildwars2.com/v2/recipes`)
         .then(res => { this.setState({ recipeIDs: res.data })
 
             //Grab Recipes by ID
@@ -23,17 +23,6 @@ export default class Recipes extends React.Component {
                        if (res.data.disciplines.includes("Chef")) {
                            this.setState({ recipes: [...this.state.recipes, res.data]})
                            // console.log(this.state.recipes);
-
-                           //Using output_item_id, fetch specific Recipe info for each recipe
-                           this.state.recipes.forEach((element) => {
-                            axios.get(`https://api.guildwars2.com/v2/items?ids=` + element.output_item_id)
-                            .then(res => {
-                                this.setState({ recipeDetails: [...this.state.recipeDetails, ...res.data]})
-                                console.log(this.state.recipeDetails);
-                                
-            
-                            })
-                        })
                        } 
                     })  
                     .catch((error) => console.log(error))
@@ -43,6 +32,18 @@ export default class Recipes extends React.Component {
         })
         .catch((error) => console.log(error))
         //Grab item names
+
+        promise1.then(() => {
+            //Using output_item_id, fetch specific Recipe info for each recipe
+            this.state.recipes.forEach((element) => {
+                axios.get(`https://api.guildwars2.com/v2/items?ids=` + element.output_item_id)
+                .then(res => {
+                    this.setState({ recipeDetails: [...this.state.recipeDetails, ...res.data]})
+                    console.log(this.state.recipeDetails);
+                })
+            })
+        })
+        
         
     }
     render() {
